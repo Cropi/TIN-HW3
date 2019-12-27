@@ -169,8 +169,67 @@ $ O(g(n)) \subseteq O(f(n)) \land O(g(n)) \neq O(f(n)) \Rightarrow O(g(n)) \subs
 \newpage
 % Task 3
 \section{3.úloha}
-\newpage
+Pre dôkaz ťažkosti problem tety kvety použijeme polynomiálnu redukciu z problému "Subset sum problem", ktorý je mimochodom NP úplny problem.
 
+\textbf{Tento problem si vyjádrime zápisom: } \\
+
+$\sum\limits_{i=1}^{n} (c_i + B) * x_i \geq C \land \sum\limits_{i=1}^{n} o_i * x_i \leq 0 $ pre $  x_i \in \{0, 1\} $, kde \\
+
+$ x_i $ je informácia, či sa (ne)bude táto položka nachádzať v nákupnom košíku, \\
+
+$ o_i $ je cena 1 kg danej zeleniny, \\
+
+$ n $ je veľkosť množiny (do toho sa započíta celková hmotnosť zeleniny v obchode okrem brokolice) \\
+
+$ C $ vyjadruje minimalné požadované množstvo vitaminov C \\
+
+$ B $ množstvo vitaminu C v 0,1kg brokolice \\
+
+$c_i$ je množstvo vitaminu C v 1 kg danej zeleniny \\
+
+$ i $ je pomocná premenná \\
+
+\textit{Problem subset sum obecne:} Je daná množina prirodzených čísel $ M = \{n1, n2, ..., n_r\} $ a číslo $k$. Rozhodovací problém sa spýta, či je možné vybrať z M podmnožinu N tak, že súčet čísel N je rovno k. \footnote{Subset sum problem: https://www.algoritmy.net/article/7682/Subset-sum-\%E2\%86\%92-Deleni-koristi}
+
+\textbf{Problem formulujeme nasledujúcim zápisom:} \\
+
+$ \sum\limits_{i=1}^{n} v_i * y_i = k $ pre $ y_i \in \{0, 1\}$
+
+Nasleduje redukcia Subset sum problemu na Problem tety kvety. V prvodem rade vytvoríme instanciu problému tety kvety nasledujúcim spôsobom:
+
+\begin{align*}
+    (c_i + B) = o_i = v_i \\
+    C = O = k
+\end{align*}
+
+Túto redukciu bude vykonať úplny DTS, jeho zložitosť bude iste spadať do triedy $O(n^l)$.
+Odpoveď Áno/Nie na vytvorený problem tety kvety potom súvisí s odpoveďou na pôvodný problem: \\
+
+    \begin{align*}
+        \left.
+        \begin{array}{r@{}l}
+            \sum\limits_{i=1}^{n} (c_i + B) x_i \geq C & \iff \sum\limits_{i=1}^{n} v_i * x_i \geq k \\
+            \sum\limits_{i=1}^{n} o_i * x_i \leq 0 & \iff \sum\limits_{i=1}^{n} v_i * x_i \leq k
+        \end{array}
+        \right\rbrace
+        \begin{array}{r@{}l}
+            \iff \sum\limits_{i=1}^{n} v_i * x_i = k \hspace{0,3cm}pre \hspace{0,2cm} x_i =\in \{0, 1\} 
+        \end{array}
+    \end{align*}
+
+To znamená, že keď najdeme vektor x takový, ktorý vyhovuje problému tety kvety, potom ten istý vektor x je aj riešením \textbf{subset problemu} a zároveň odpoveď zo \textbf{subset problemu} je Áno. Inak (ak sme takýto vektor nenašli) - neexistuje podmnožina pre danú množinu, kde súčet by bol rovno číslu $k$, dostaneme odpoveď Nie. \\
+
+Správnosť odpovedí ukážeme ukážeme v polynomiálnom čase - sčítame obsah vitaminu C, ceny a hodnoty, ktoré potom budeme porovnávať so stanovenými hranicami.
+
+
+\paragraph{Pre ľudstvo znamená:}\mbox{{}}\\
+\begin{enumerate}
+    \item Stroj v batohu je deterministický - Stroj v batohu dokáže vyriešiť v polynomiálnom čase problem s exponenciálnou zložitosťou: $ P = NP $. Toto zistenie by viedlo k najdení rychlejších algoritmov na vyriešenie NP úplnych úloh. \\
+    \item Stroj v batohu je NEdeterministický - Alan použil tzv. Turingov stroj. Definícou tohto teoretického stroja ukázal univerzialny prostriedok na vyjádrenie rôznych algoritmov. Pomocou tohoto  nedeterministického stroje je možné vyriešiť aj problém s exponenciálnou zložitosťou v polynomialnom čase. Ak existuje správne riešenie , tak sa nachádza medzi všetkými nedeterministickými možnými riešeniami, ktoré uhádne a potom stačí overiť jeho správnosť.
+\end{enumerate}
+
+
+\newpage
 % Task 4
 \section{4.úloha}
 \newpage
