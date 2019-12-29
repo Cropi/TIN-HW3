@@ -232,44 +232,94 @@ Správnosť odpovedí ukážeme ukážeme v polynomiálnom čase - sčítame obs
 \newpage
 % Task 4
 \section{4.úloha}
+
+Jednoduchá reprezentácia komplexného systému si vyžaduje rozdelenie zadania úlohy na mänšie části. Z tohto dôvodu som sa rozhodol rozdeliť riešenie danej úlohy na 4 části, ktoré sú nasledujúce:
+\begin{enumerate}
+    \item Prechod z ľavej strany na pravú (Obrázok \ref{fig:pn1})
+    \item Prechod z pravej strany na ľavú (Obrázok \ref{fig:pn2})
+    \item Vlk zožerie kozu/koza zožerie zelí na ľavej strane, keď prievozník je na pravej strane (Obrázok \ref{fig:pn3})
+    \item Vlk zožerie kozu/koza zožerie zelí na pravej strane, keď prievozník je na ľavej strane (Obrázok \ref{fig:pn4})
+\end{enumerate}
+
+Výsledná Petriho sieť vyzerá následovne\cite{AA}: \\
+\begin{align*}
+    N = (P, T, F, W, K, M_0)
+\end{align*}
+
+Množina miest \textbf{P}:
+\begin{itemize}
+    \item \textbf{vlk1} - vlk sa nachádza na ľavej strane, \textbf{vlk2} - vlk sa nachádza na pravej strane
+    \item \textbf{koza1} - koza sa nachádza na ľavej strane, \textbf{koza2} - koza sa nachádza na pravej strane
+    \item \textbf{zelí1} - zelí je na ľavej strane, \textbf{zelí2} - zelí je na pravej strane
+    \item \textbf{prievozník1} - prievozník je na lavej strane, \textbf{prievozník2} - prievozník je na pravej strane
+\end{itemize}
+
+Množina priechodov \textbf{T}:
+\begin{itemize}
+    \item \textbf{vlk\_na\_lodi1} - vlk prejde z ľavej strany na pravú, \textbf{vlk\_na\_lodi2} - vlk prejde z pravej strany na ľavú
+    \item \textbf{koza\_na\_lodi1} - koza prejde z ľavej strany na pravú, \textbf{koza\_na\_lodi2} - koza prejde z pravej strany na ľavú
+    \item \textbf{zelí\_na\_lodi1} - zelí prejde z ľavej strany na pravú, \textbf{zelí\_na\_lodi2} - zelí prejde z pravej strany na ľavú
+    \item \textbf{prievozník\_na\_lodi1} - prievozník prejde z ľavej strany na pravú, \textbf{prievozník\_na\_lodi2} - prievozník prejde z pravej strany na ľavú
+    \item \textbf{vlk+koza 1} - vlk zožerie kozu na lavej strane, \textbf{vlk+koza 2} - vlk zořerie kozu na pravej strane
+    \item \textbf{koza+zelí 1} - koza zožerie zelí na lavej strane, \textbf{koza+zelí 2} - koza zořerie zelí na pravej strane
+\end{itemize}
+
+\newcommand{\Cross}{\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}}
+
+Toková relácia  \textbf{F} $ \subseteq (P \Cross T) \cup (T \Cross P) $:
+\begin{itemize}
+    \item (vlk1, vlk\_na\_lodi1), (vlk\_na\_lodi1, vlk2), (koza1, koza\_na\_lodi1), (koza\_na\_lodi1, koza2), (zelí1, zelí\_na\_lodi1), (zelí\_na\_lodi1, zelí2), (prievozník1, prievozník\_na\_lodi1), (prievozník\_na\_lodi1, prievozník2)
+    \item (vlk2, vlk\_na\_lodi2), (vlk\_na\_lodi2, vlk1), (koza2, koza\_na\_lodi2), (koza\_na\_lodi2, koza1), (zelí2, zelí\_na\_lodi2), (zelí\_na\_lodi2, zelí1), (prievozník2, prievozník\_na\_lodi2), (prievozník\_na\_lodi2, prievozník1)
+    \item (vlk1, vlk+koza 1), (vlk+koza 1, vlk1), (koza1, vlk+koza 1), (koza1, koza+zeli 1), (koza + zeli 1, koza1), (zeli1, koza+zeli 1), (vlk+koza 1, prievoznik2), (prievoznik2, vlk+koza 1), (koza+zeli 1, prievoznik2), (prievoznik2, koza+zeli 1)
+    \item (prievoznik1, vlk+koza 2), (vlk+koza 2, prievoznik1), (prievoznik1, koza+zeli 2), (koza+zeli 2, prievoznik1), (vlk+koza 2, vlk2), (vlk2, vlk+koza 2), (koza2, vlk+koza 2), (koza+zeli 2, koza), (koza2, koza+zeli 2), (zeli2, koza+zeli 2)
+\end{itemize}
+
+\textbf{W} : $ F \rightarrow \mathbb N  \backslash \{0\}$ je ohodnocení hran grafu určujúci kladnú váhu každej hrany siete
+\begin{itemize}
+    \item Každá hrana má ohodnocenie \textbf{1}.
+\end{itemize}
+
+\textbf{K} : $ P \rightarrow \mathbb N \cup \{w\} $ je zobrazenie určujúci kapacaitu každého miesta
+\begin{itemize}
+    \item Kapacita každého miesta je \textbf{1} (maximálne 1 vlk, 1 koza, 1 zelí, 1 prievozník)
+\end{itemize}
+
+$\mathbf{M_0} : P \rightarrow \mathbb N \cup \{w\} $ je počiatočné značenie miest Petriho siete takové, že $ \forall p \in P: M_0(p) \leq K(p) $
+ 
+\begin{enumerate}
+    \item Počiatočná konfigurácia jednotlivých značiek závisí na zadáni úlohy(z čoho mimochodem nie je jasné, že na ktorej strane sa nachádzajú jednotlivé entity na začiatku). Defaultná konfigurácia je taková, že každá entita z množiny entit {vlk, koza, zelí, prievozník} je na ľavej strane.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{pn1NEW.eps}
+    \caption{Ľavá strana $\protect\Rightarrow$ Pravá strana}
+    \label{fig:pn1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{pn2NEW.eps}
+    \caption{Pravá strana $\protect\Rightarrow$ Ľavá strana}
+    \label{fig:pn2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{pn3NEW.eps}
+    \caption{Koza zožerie zelí alebo vlk zožerie kozu na ľavej strane, keď prievozník je na pravej strane}
+    \label{fig:pn3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{pn4NEW.eps}
+    \caption{Koza zožerie zelí alebo vlk zožerie kozu na pravej strane, keď prievozník je na ľavej strane}
+    \label{fig:pn4}
+\end{figure}
+
 \newpage
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Test \cite{AA}
-
-
-
-
-
-
-
-\newpage
 \section{Literatura}
 \bibliographystyle{czechiso}
 \begin{flushleft}
