@@ -37,6 +37,8 @@
 \newcommand{\TODO}{\textbf{\textcolor{red}{TODO}}} % red bold TODO
 \newcommand{\tilda}{\raisebox{0.5ex}{\texttildelow}} % command \tilda for '~' character
 
+\newcommand{\Cross}{\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}}
+
 \renewcommand{\cftdot}{}
 
 \setlength\parindent{0pt} % do NOT indent
@@ -118,8 +120,49 @@
 
 % Task 1
 \section{1.úloha}
-\newpage
 
+Nasledujúce primitivne rekurzivné funkcie boli prevzaté zo študijnej opory\cite{AA}:
+\begin{itemize}
+    \item $ plus : \mathbb N \times \mathbb N \rightarrow \mathbb N$ \\
+     $ plus(x, y) = \pi_1^1(x)$ \\
+     $ plus(x, y + 1) = \sigma \circ \pi_3^3(x, y, plus(x, y))$ 
+
+    \item $ mult : \mathbb N \times \mathbb N \rightarrow \mathbb N$ \\
+    $ mult(x, 0) = K_0^1(x) $ \\
+    $ mult(x, y + 1) = plus(x, mult(x, y)) $
+
+    \item $ monus : \mathbb N \times \mathbb N \rightarrow \mathbb N$ \\
+    $ monus(x, 0) = \pi_1^1(x) $ \\
+    $ monus(x, y + 1) = pred(monus(x, y)) $
+
+    \item $ eq : \mathbb N \times \mathbb N \rightarrow \mathbb N$ \\
+    $ eq(x, y) = monus \circ ( K_1^2 \times (plus \circ ((monus \circ (\pi_2^2 \times \pi_1^2)) \times monus \circ (\pi_1^2 \times \pi_2^2)))) $
+
+    \item $ \neg eq : \mathbb N \times \mathbb N \rightarrow \mathbb N$ \\
+    $ \neg eq(x, y) = monus \circ (K_1^2 \times eq) $
+\end{itemize}
+
+Nulová funkcia: $ \xi() = 0 $ \\
+
+Projekcia: $ \pi_k^n : \mathbb N^n \rightarrow \mathbb N$
+
+\noindent\rule{\textwidth}{1pt}
+\textbf{Riešenie:} \\
+
+  
+$ sqrt : \mathbb N \rightarrow \mathbb N$ \\
+$ sqrt(x) = f \times (\pi_1^1 \times \pi_1^1) $ \\
+
+$ f : \mathbb N \times \mathbb N \rightarrow \mathbb N$ \\
+$ f(x, 0) = 0 $ \\
+$ f(x, z + 1) = plus \circ (mult \circ (f(x, z) \times \neg eq \circ (check(x, z) \times K_1^1)) \times (mult \circ(\pi_1^2 \times check(x, z)))) $ \\
+
+$ check : \mathbb N \times \mathbb N \rightarrow \mathbb N$  \\
+$ check(x, z) = mult \circ (eq \circ ( monus \circ (exp(z) \times x) \times \xi()) \times \neg eq \circ (monus \circ (exp(plus \circ (z \times K_1^1)) \times x))) $
+
+Ľavá čásť funkcie check(x,z) skontroluje podmienku $ z^2 \leq x $, pričom pravá čásť $ (z + 1)^2 \geq x $
+
+\newpage
 % Task 2
 \section{2.úloha}
 Zostrojme si graf funkcie pre $ f(n) = \sqrt{2} n^3$ a pre $ g(n) = 10000n^2 + 500n + 211 $. \\
@@ -263,8 +306,6 @@ Množina priechodov \textbf{T}:
     \item \textbf{vlk+koza 1} - vlk zožerie kozu na lavej strane, \textbf{vlk+koza 2} - vlk zořerie kozu na pravej strane
     \item \textbf{koza+zelí 1} - koza zožerie zelí na lavej strane, \textbf{koza+zelí 2} - koza zořerie zelí na pravej strane
 \end{itemize}
-
-\newcommand{\Cross}{\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}}
 
 Toková relácia  \textbf{F} $ \subseteq (P \Cross T) \cup (T \Cross P) $:
 \begin{itemize}
