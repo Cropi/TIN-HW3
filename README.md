@@ -1,2 +1,3 @@
 # TIN-HW3
-School project for TIN
+
+Obtained points: 4.5/5.0
